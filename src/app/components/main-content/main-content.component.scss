@@ -1,0 +1,67 @@
+.mainButtons {
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0px 0 0;
+}
+.button {
+  color: black;
+  text-shadow: none;
+  font-size: 15px;
+  font-weight: normal;
+  width: 160px;
+  text-align: center;
+  padding: 5px 0 5px 0px;
+  border-style: solid;
+  border-radius: 7px;
+  border-color: #bbbbbb;
+  border-width: 2px;
+  box-shadow: 0px 4px 5px 2px rgb(0 0 0 / 50%);
+  &:hover {
+    box-shadow: 0px 4px 10px 3px rgb(0 0 0 / 50%);
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: inset 0px 4px 10px 0px rgb(0 0 0 / 50%);
+    font-size: 14px;
+  }
+}
+.tableMain {
+  height: calc(100% - 80px);
+  margin: 0px 5px 0px 5px;
+  border-radius: 7px;
+  padding: 0px 5px 5px 5px;
+  box-shadow: 0px 6px 20px 3px rgb(0 0 0 / 50%);
+  overflow: auto;
+}
+.table {
+  width: 100%;
+  thead {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top: 0;
+    background: #dfdede;
+    height: 30px;
+    box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 50%);
+    
+    tr{
+      width: 1;
+    }
+    td {
+      padding: 0px 0px 0px 5px;
+    }
+  }
+  tbody {
+    width: 1;
+    tr{
+      width: 1;
+    }
+    td {
+      width: 1;
+    }
+  }
+}

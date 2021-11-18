@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+html{
+    height: 100%;
+}
+body {
+    margin: 0;
+    font: 15px sans-serif;
+    height: 100%;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+.text{
+    color: white;
+    font-family: monospace;
+    text-shadow: -1px 1px 3px black;
+    font-size: 25px;
+    font-weight: bold;
+}

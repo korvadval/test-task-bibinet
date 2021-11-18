@@ -1,0 +1,12 @@
+<div class="containerPanel">
+  <div class="sectionPanel" *ngFor="let section of sections">
+    <div class="headerSections text">{{ section.name }}</div>
+    <div
+      *ngFor="let item of section.items"
+      class="itemSection text {{item.selectedStyle}}"
+      (click)="setSelectedItemStyle(item.itemId, section.sectionId)"
+    >
+      {{ item.name }}
+    </div>
+  </div>
+</div>
