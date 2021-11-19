@@ -1,0 +1,23 @@
+<div class="main" (click)="hideDialog()">
+  <div class="loginPass" (click)="stopPropagationHandler($event)">
+    <div class="text unselectable">Вход</div>
+    <form class="formLoginPass">
+      <input
+        type="text"
+        [(ngModel)]="loginForm.login"
+        id="login"
+        required
+        name="login"
+      />
+      <input
+        type="password"
+        [(ngModel)]="loginForm.password"
+        id="password"
+        required
+        name="password"
+      />
+      <div class="error" *ngIf=error>{{error}}</div>
+      <button class="buttonLogin unselectable" (click)="logining()">Войти</button>
+    </form>
+  </div>
+</div>

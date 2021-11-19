@@ -1,40 +1,28 @@
-let domen="https://demo-db-review-man-services-ci-app1.bibinet.ru"
+let domen = "https://demo-db-review-man-services-ci-app1.bibinet.ru";
 
-function sendRequest(method, url, body = null) {
+export default function sendRequest(method, url, body, access_token) {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest();
 
-    xhr.open(method, domen+url)
+    xhr.open(method, domen + url);
 
-    xhr.responseType = 'json'
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+    xhr.responseType = "json";
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.setRequestHeader("Authorization", access_token);
 
     xhr.onload = () => {
       if (xhr.status >= 400) {
-        reject(xhr.response)
+        reject(xhr.response);
       } else {
-        resolve(xhr.response)
+        resolve(xhr.response);
       }
-    }
+    };
 
     xhr.onerror = () => {
-      reject(xhr.response)
-    }
+      reject(xhr.response);
+    };
 
-    xhr.send(JSON.stringify(body))
-  })
+    xhr.send(JSON.stringify(body));
+  });
 }
-
-sendRequest('GET', requestURL)
-  .then(data => console.log(data))
-  .catch(err => console.log(err))
-
-const body = {
-  name: 'Vladilen',
-  age: 26
-}
-
-sendRequest('POST', requestURL, body)
-  .then(data => console.log(data))
-  .catch(err => console.log(err))

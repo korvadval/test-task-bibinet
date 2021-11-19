@@ -47,8 +47,8 @@
     background: #dfdede;
     height: 30px;
     box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 50%);
-    
-    tr{
+
+    tr {
       width: 1;
     }
     td {
@@ -57,11 +57,17 @@
   }
   tbody {
     width: 1;
-    tr{
+    tr {
       width: 1;
     }
     td {
-      width: 1;
+      white-space: break-spaces;
     }
   }
+}
+.warningNeedLogin {
+  width: 100%;
+  padding: 70px 0 0 0;
+  color: red;
+  text-align: center;
 }

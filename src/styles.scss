@@ -10,7 +10,7 @@ a{
     text-decoration: none;
     color: inherit;
 }
-.unselectable {
+.unselectable,h2 {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
     -khtml-user-select: none; /* Konqueror */

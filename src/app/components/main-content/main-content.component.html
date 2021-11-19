@@ -2,7 +2,7 @@
   <div class="text button">ФИЛЬТР</div>
   <div class="text button">ПОКАЗАТЬ НА КАРТЕ</div>
 </div>
-<div class="tableMain">
+<div *ngIf=isLogin class="tableMain">
   <table class="table">
     <thead>
       <tr>
@@ -22,9 +22,10 @@
         <td>{{ x.status }}</td>
         <td>{{ x.address }}</td>
         <td>{{ x.phone }}</td>
-        <td>{{ x.todo }}</td>
+        <td>{{ x.taskLast }}</td>
         <td>{{ x.import }}</td>
       </tr>
     </tbody>
   </table>
 </div>
+<div *ngIf=!isLogin class="warningNeedLogin">Для просмотра необходимо войти!</div>
