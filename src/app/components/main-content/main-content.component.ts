@@ -12,6 +12,7 @@ export class MainContentComponent implements OnInit {
   isLogin = false;
   access_token = '';
   refresh_token = '';
+  needFilter = false;
 
   constructor() {}
 
@@ -34,23 +35,20 @@ export class MainContentComponent implements OnInit {
       .catch((err) => console.error(err));
   }
 
-  requestCompanyList(filter:any={}): void {
+  requestCompanyList(filter: any = {}): void {
     const help = {
       help: true,
     };
     const body = {
       filter: filter,
       fields: [
-        'name',
-        'address',
-        'urname',
-        'is_has_import',
-        'task_last',
         'company__name',
         'company__company_state__name',
+        'address',
         'city__name',
-        'city__country__name',
         'branch_phones',
+        'task_last',
+        'is_has_import',
       ],
       sort: [],
       limit: 30,
@@ -71,9 +69,9 @@ export class MainContentComponent implements OnInit {
   fillCompanyList(data: any) {
     for (let el of data) {
       let bufCompany = {
-        company: el.name + '\n' + (el.urname ? el.urname : ''),
+        company: el.company.name,
         status: el.company.company_state.name,
-        address: el.city.country.name + ', ' + el.city.name + '\n' + el.address,
+        address: el.city.name + '\n' + el.address,
         phone: [...el.branch_phones].toString().replace(/,/gi, '\n'),
         taskLast: el.task_last,
         import: el.is_has_import ? 'Открыть' : '',
@@ -82,6 +80,17 @@ export class MainContentComponent implements OnInit {
     }
   }
 
+  toggleFilter() {
+    this.needFilter = !this.needFilter;
+  }
+  testR(){
+    const body = {
+      "help": true
+    };
+    sendRequest('POST', '/references/City/', body, this.access_token)
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+  }
   ngOnInit(): void {
     let access_token = localStorage.getItem('access_token') || '';
     let refresh_token = localStorage.getItem('refresh_token') || '';
@@ -91,5 +100,6 @@ export class MainContentComponent implements OnInit {
       this.refresh_token = refresh_token;
     }
     this.requestCompanyList();
+    this.testR();
   }
 }

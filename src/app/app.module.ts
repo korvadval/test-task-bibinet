@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LeftPanelComponent } from './components/left-panel/left-panel.component';
 import { MainContentComponent } from './components/main-content/main-content.component';
 import { LoginComponent } from './components/login/login.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
     LeftPanelComponent,
     MainContentComponent,
     LoginComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+<div class="containerFilter">
+  <form>
+    <div *ngFor="let filter of filtersList; let i = index">
+      <input
+        name="filter.{{i}}.name"
+        placeholder="{{filter.name}}"
+        class="searchBar"
+        [(ngModel)]="filter.value"
+      /><div>{{filtersList[i].value}}</div>
+    </div>
+    <button (click)="clearFilters()">Очистить</button>
+    <button>Показать</button>
+  </form>
+  <div></div>
+</div>

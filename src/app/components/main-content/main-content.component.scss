@@ -47,21 +47,16 @@
     background: #dfdede;
     height: 30px;
     box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 50%);
-
-    tr {
-      width: 1;
-    }
     td {
       padding: 0px 0px 0px 5px;
     }
   }
   tbody {
-    width: 1;
-    tr {
-      width: 1;
-    }
     td {
       white-space: break-spaces;
+      background-color: #dfdede;
+      padding: 3px 0px 5px 3px;
+      vertical-align: top;
     }
   }
 }

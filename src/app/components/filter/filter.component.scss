@@ -1,0 +1,19 @@
+.containerFilter {
+  position: fixed;
+  top: 130px;
+  width: 550px;
+  height: 200px;
+  background: #dfdede;
+  margin: 0 0 0 8px;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0px 5px 10px 3px rgb(0 0 0 / 50%);
+}
+form {
+  display: flex;
+  flex-wrap: wrap;
+  input {
+    margin: 5px 0 0 5px;
+    height: 30px;
+  }
+}

@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
   needLogin = true;
   isExpandedContent: boolean = false;
   stateContent: string = 'full';
+  
 
   ngOnInit(): void {
     let access_token=localStorage.getItem("access_token");

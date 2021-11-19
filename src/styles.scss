@@ -1,27 +1,37 @@
-html{
-    height: 100%;
+html {
+  height: 100%;
 }
 body {
-    margin: 0;
-    font: 15px sans-serif;
-    height: 100%;
+  margin: 0;
+  font: 15px sans-serif;
+  height: 100%;
 }
-a{
-    text-decoration: none;
-    color: inherit;
+a {
+  text-decoration: none;
+  color: inherit;
 }
-.unselectable,h2 {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Chrome/Safari/Opera */
-    -khtml-user-select: none; /* Konqueror */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
+.unselectable,
+h2 {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
-.text{
-    color: white;
-    font-family: monospace;
-    text-shadow: -1px 1px 3px black;
-    font-size: 25px;
-    font-weight: bold;
+.text {
+  color: white;
+  font-family: monospace;
+  text-shadow: -1px 1px 3px black;
+  font-size: 25px;
+  font-weight: bold;
+}
+.searchBar {
+    background: #ffffff85;
+    border-radius: 6px;
+    border-width: 1px;
+    height: 20px;
+    outline: none;
+    border-color: #7baf3d;
+    padding: 0 0 0 5px;
 }

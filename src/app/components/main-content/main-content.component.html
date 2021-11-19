@@ -1,22 +1,21 @@
 <div class="mainButtons unselectable">
-  <div class="text button">ФИЛЬТР</div>
+  <div class="text button" (click)="toggleFilter()">ФИЛЬТР</div>
   <div class="text button">ПОКАЗАТЬ НА КАРТЕ</div>
 </div>
-<div *ngIf=isLogin class="tableMain">
+<div *ngIf="isLogin" class="tableMain">
   <table class="table">
     <thead>
       <tr>
         <td>Компания</td>
         <td>Статус</td>
         <td>Адрес</td>
-        <td style="width: 120px;">Телефон</td>
+        <td style="width: 120px">Телефон</td>
         <td>Действие</td>
         <td>Импорт</td>
       </tr>
     </thead>
     <tbody>
-      <tr style="height: 10px;">    
-      </tr>
+      <tr style="height: 10px"></tr>
       <tr *ngFor="let x of companyList">
         <td>{{ x.company }}</td>
         <td>{{ x.status }}</td>
@@ -28,4 +27,7 @@
     </tbody>
   </table>
 </div>
-<div *ngIf=!isLogin class="warningNeedLogin">Для просмотра необходимо войти!</div>
+<div *ngIf="!isLogin" class="warningNeedLogin">
+  Для просмотра необходимо войти!
+</div>
+<app-filter *ngIf="needFilter"></app-filter>
