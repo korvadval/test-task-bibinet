@@ -30,4 +30,4 @@
 <div *ngIf="!isLogin" class="warningNeedLogin">
   Для просмотра необходимо войти!
 </div>
-<app-filter *ngIf="needFilter"></app-filter>
+<app-filter *ngIf="needFilter" [filtersList]=filtersList (sendToParent)="showFilteredData($event)"></app-filter>
