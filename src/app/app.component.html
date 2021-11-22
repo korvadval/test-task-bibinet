@@ -1,16 +1,19 @@
 <div class="headerMain unselectable shadow">
-  <div class="containerHeader">
-    <fa-icon
+  <fa-icon
       [icon]="faIcon"
       class="text buttonHeader"
       (click)="togglePanel()"
     ></fa-icon>
+  <div class="containerHeader">
+    
     <div class="companyName text">bibinet.ru</div>
-    <input type="text" placeholder="Поиск..." class="searchBar"/>
+    <input type="text" placeholder="Поиск..." class="searchBar" />
   </div>
-  <div class="buttonHeader text" (click)="toggleLogin()">Вход</div>
+  <div class="buttonsHeaderRight">
+    <div *ngIf=!isLogin class="buttonHeader text" (click)="toggleLogin()">Вход</div>
+    <div *ngIf=isLogin class="buttonHeader text" (click)="unlogin()">Выход</div>
+  </div>
 </div>
-
 <app-login *ngIf="needLogin" (onChanged)="toggleLogin()"></app-login>
 
 <app-left-panel @expandedPanel *ngIf="needPanel"></app-left-panel>

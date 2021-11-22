@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './left-panel.component.html',
   styleUrls: ['./left-panel.component.scss'],
 })
+//navigation site menu
 export class LeftPanelComponent implements OnInit {
   sections = [
     {
@@ -57,6 +58,7 @@ export class LeftPanelComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
 
   setSelectedItemStyle(itemId:number, sectionId:number){
     this.sections[this.curItem.section].items[this.curItem.item].selectedStyle="";

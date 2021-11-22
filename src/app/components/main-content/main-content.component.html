@@ -20,7 +20,7 @@
         <td>{{ x.company }}</td>
         <td>{{ x.status }}</td>
         <td>{{ x.address }}</td>
-        <td>{{ x.phone }}</td>
+        <td style="min-width: 120px;">{{ x.phone }}</td>
         <td>{{ x.taskLast }}</td>
         <td>{{ x.import }}</td>
       </tr>
@@ -30,4 +30,10 @@
 <div *ngIf="!isLogin" class="warningNeedLogin">
   Для просмотра необходимо войти!
 </div>
-<app-filter *ngIf="needFilter" [filtersList]=filtersList (sendToParent)="showFilteredData($event)"></app-filter>
+<app-filter
+  *ngIf="needFilter"
+  (sendToParent)="showFilteredData($event)"
+  (hideFilter)="toggleFilter()"
+  [filter]="filter"
+  [dictionary]="dictionary"
+></app-filter>

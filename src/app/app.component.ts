@@ -39,15 +39,24 @@ export class AppComponent implements OnInit {
   needLogin = true;
   isExpandedContent: boolean = false;
   stateContent: string = 'full';
+  isLogin=false;
   
+  unlogin(){
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.reload();
+  }
 
+//check was auth later
   ngOnInit(): void {
     let access_token=localStorage.getItem("access_token");
     if(access_token){
       this.needLogin=false;
+      this.isLogin=true;
     }
   }
 
+//controll left panel show/hide
   togglePanel(): void {
     this.needPanel = !this.needPanel;
     this.faIcon = this.needPanel ? faTimes : faBars;
@@ -55,6 +64,7 @@ export class AppComponent implements OnInit {
     this.isExpandedContent = !this.isExpandedContent;
     this.stateContent = this.isExpandedContent ? 'half' : 'full';
   }
+//controll login window show/hide
   toggleLogin(): void {
     this.needLogin = !this.needLogin;
   }

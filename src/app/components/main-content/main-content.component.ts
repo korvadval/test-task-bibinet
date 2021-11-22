@@ -13,40 +13,14 @@ export class MainContentComponent implements OnInit {
   access_token = '';
   refresh_token = '';
   needFilter = false;
-  filtersList = [
-    { name: 'id', value: '' },
-    { name: 'Наименование комании', value: '' },
-    { name: 'Юр наименование', value: '' },
-    { name: 'Статус комании', value: '' },
-    { name: 'Тип компании', value: '' },
-    { name: 'Телефон', value: '' },
-    { name: 'Емайл', value: '' },
-    { name: 'Сайт', value: '' },
-    { name: 'Представитель', value: '' },
-    { name: 'Содержание действия', value: '' },
-    { name: 'Регион', value: '' },
-    { name: 'Область: край', value: '' },
-    { name: 'Адрес', value: '' },
-  ];
-  filter={
-    'company_id':'',
-    'company_state':'',
-    'email':'',
 
-    'address':'',
-    'company_name':'',
-    'company_type':'',
-    'site':'',
-    'region':'',
-    'company_switch_name.firm':'',
-    'phone':'',
-    'agents':'',
-    'district':'',
-  }
+  filter: any = {};
+  dictionary: any = [];
 
   constructor() {}
 
-  refreshToken() {
+//refresh access_token when it is deprecated
+  async refreshToken() {
     const body = {
       data: {
         access_token: this.access_token,
@@ -65,13 +39,14 @@ export class MainContentComponent implements OnInit {
       .catch((err) => console.error(err));
   }
 
-  requestCompanyList(filter: any = {}) {
+  requestCompanyList() {
     const help = {
       help: true,
     };
     const body = {
-      filter: filter,
+      filter: this.filter,
       fields: [
+        'company__id',
         'company__name',
         'company__company_state__name',
         'address',
@@ -86,17 +61,20 @@ export class MainContentComponent implements OnInit {
     };
     sendRequest('POST', '/company/', body, this.access_token)
       .then((data) => {
-        // this.fillCompanyList(data.response);
-        console.log(data);
+        this.fillCompanyList(data.response);
       })
       .catch(async (err) => {
-        await this.refreshToken();
-        this.requestCompanyList();
+        if (err.not_auth) {
+          await this.refreshToken();
+          this.requestCompanyList();
+        }
         console.error(err);
       });
   }
 
+//combine data for show
   fillCompanyList(data: any) {
+    this.companyList = [];
     for (let el of data) {
       let bufCompany = {
         company: el.company.name,
@@ -110,20 +88,65 @@ export class MainContentComponent implements OnInit {
     }
   }
 
+//controll filter view show/hide
   toggleFilter() {
     this.needFilter = !this.needFilter;
   }
 
-  fillFilter(newFilter:any){
-    this.filter.address
-  }
-
-  showFilteredData(data:any) {
-    console.log("filtered")
-    
+  showFilteredData(newFilter: any) {
+    this.filter = newFilter;
     this.requestCompanyList();
   }
 
+//get data for selectors on filter view
+  async loadDictionary(url: string, name: string, filterField: string) {
+    const help = {
+      help: true,
+    };
+    const body = { fields: [] };
+    sendRequest('POST', url, body, this.access_token)
+      .then((data) => {
+        this.dictionary.push({
+          name: name,
+          data: data.response,
+          value: '',
+          filterField: filterField,
+        });
+      })
+      .catch(async (err) => {
+        if (err.not_auth) {
+          await this.refreshToken();
+          this.loadDictionary(url, name, filterField);
+        }
+        console.error(err);
+      });
+  }
+
+//combine data for selectors on filter view
+  async fillDictionary(){
+    await this.loadDictionary(
+      '/references/CompanyState/',
+      'Статус компании',
+      'company_state'
+    );
+    await this.loadDictionary(
+      '/references/CompanyType/',
+      'Тип компании',
+      'company_type'
+    );
+    await this.loadDictionary(
+      '/references/District/',
+      'Область, край',
+      'district'
+    );
+    await this.loadDictionary(
+      '/references/Region/',
+      'Регион',
+      'region'
+    );
+  }
+
+//get tokens for future 
   ngOnInit(): void {
     let access_token = localStorage.getItem('access_token') || '';
     let refresh_token = localStorage.getItem('refresh_token') || '';
@@ -132,6 +155,9 @@ export class MainContentComponent implements OnInit {
       this.access_token = access_token;
       this.refresh_token = refresh_token;
     }
+
+    this.fillDictionary();
+
     this.requestCompanyList();
   }
 }

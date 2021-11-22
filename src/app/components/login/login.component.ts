@@ -18,16 +18,17 @@ export class LoginComponent implements OnInit {
     login: 'demo_68f3js1@bibinet.ru',
     password: 'MJJ3Cb',
   };
-  ngOnInit(): void {
-    this.access_token = localStorage.getItem('access_token') || '';
-    this.refresh_token = localStorage.getItem('refresh_token') || '';
-  }
+
+  ngOnInit(): void {}
 
   requestAuthorization() {
+    this.refresh_token = localStorage.getItem('refresh_token') || '';
+
     const body = {
       data: {
         login: this.loginForm.login,
         password: this.loginForm.password,
+        refresh_token: this.refresh_token
       },
     };
 
@@ -45,16 +46,13 @@ export class LoginComponent implements OnInit {
       .catch((err) => (this.error = err));
   }
 
-  logining() {
-    this.requestAuthorization();
-  }
-
   stopPropagationHandler(event: any) {
     event.stopPropagation();
   }
 
+  //hide self window
   @Output() onChanged = new EventEmitter<boolean>();
-  async hideDialog() {
+  hideDialog() {
     this.onChanged.emit(false);
   }
 }

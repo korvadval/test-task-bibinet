@@ -1,15 +1,27 @@
 <div class="containerFilter">
   <form>
-    <div *ngFor="let filter of filtersList; let i = index">
-      <input
-        name="filter.{{ i }}.name"
-        placeholder="{{ filter.name }}"
-        class="searchBar"
-        [(ngModel)]="filter.value"
-      />
+    <input
+      *ngFor="let el of simpleFiltersList; let i = index"
+      name="el.{{ i }}.name"
+      placeholder="{{ el.name }}"
+      class="searchBar"
+      [(ngModel)]="el.value"
+    />
+    <select
+      *ngFor="let elem of dictionary; let i = index"
+      name="elem.{{ i }}.name"
+      class="searchBar"
+      [(ngModel)]="elem.value"
+    >
+      <option value="">{{ elem.name }}</option>
+      <option *ngFor="let opt of elem.data" value="{{ opt.id }}">
+        {{ opt.name }}
+      </option>
+    </select>
+    <div class="filterButtons">
+      <button class="clear" (click)="clearFilters()">Очистить</button>
+      <button class="show" (click)="showResults()">Показать</button>
     </div>
-    <button (click)="clearFilters()">Очистить</button>
-    <button (click)="showResults()">Показать</button>
   </form>
   <div></div>
 </div>
