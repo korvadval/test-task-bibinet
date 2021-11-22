@@ -19,7 +19,7 @@ export class MainContentComponent implements OnInit {
 
   constructor() {}
 
-//refresh access_token when it is deprecated
+  //refresh access_token when it is deprecated
   async refreshToken() {
     const body = {
       data: {
@@ -27,19 +27,20 @@ export class MainContentComponent implements OnInit {
         refresh_token: this.refresh_token,
       },
     };
-    sendRequest('POST', '/accounts/token/refresh/', body, this.access_token)
+    await sendRequest('POST', '/accounts/token/refresh/', body, this.access_token)
       .then((data) => {
+        console.log(data);
         localStorage.setItem('access_token', data.response.access_token);
         localStorage.setItem('refresh_token', data.response.refresh_token);
         this.access_token = data.response.access_token;
         this.refresh_token = data.response.refresh_token;
-
-        console.log(data);
+        
+        return data.response.access_token;
       })
       .catch((err) => console.error(err));
   }
 
-  requestCompanyList() {
+  async requestCompanyList() {
     const help = {
       help: true,
     };
@@ -59,7 +60,7 @@ export class MainContentComponent implements OnInit {
       limit: 30,
       offset: 0,
     };
-    sendRequest('POST', '/company/', body, this.access_token)
+    await sendRequest('POST', '/company/', body, this.access_token)
       .then((data) => {
         this.fillCompanyList(data.response);
       })
@@ -72,7 +73,7 @@ export class MainContentComponent implements OnInit {
       });
   }
 
-//combine data for show
+  //combine data for show
   fillCompanyList(data: any) {
     this.companyList = [];
     for (let el of data) {
@@ -88,7 +89,7 @@ export class MainContentComponent implements OnInit {
     }
   }
 
-//controll filter view show/hide
+  //controll filter view show/hide
   toggleFilter() {
     this.needFilter = !this.needFilter;
   }
@@ -98,13 +99,13 @@ export class MainContentComponent implements OnInit {
     this.requestCompanyList();
   }
 
-//get data for selectors on filter view
+  //get data for selectors on filter view
   async loadDictionary(url: string, name: string, filterField: string) {
     const help = {
       help: true,
     };
     const body = { fields: [] };
-    sendRequest('POST', url, body, this.access_token)
+    await sendRequest('POST', url, body, this.access_token)
       .then((data) => {
         this.dictionary.push({
           name: name,
@@ -122,8 +123,8 @@ export class MainContentComponent implements OnInit {
       });
   }
 
-//combine data for selectors on filter view
-  async fillDictionary(){
+  //combine data for selectors on filter view
+  async fillDictionary() {
     await this.loadDictionary(
       '/references/CompanyState/',
       'Статус компании',
@@ -139,14 +140,10 @@ export class MainContentComponent implements OnInit {
       'Область, край',
       'district'
     );
-    await this.loadDictionary(
-      '/references/Region/',
-      'Регион',
-      'region'
-    );
+    await this.loadDictionary('/references/Region/', 'Регион', 'region');
   }
 
-//get tokens for future 
+  //get tokens for future
   ngOnInit(): void {
     let access_token = localStorage.getItem('access_token') || '';
     let refresh_token = localStorage.getItem('refresh_token') || '';
@@ -154,10 +151,10 @@ export class MainContentComponent implements OnInit {
       this.isLogin = true;
       this.access_token = access_token;
       this.refresh_token = refresh_token;
+
+      this.fillDictionary();
+
+      this.requestCompanyList();
     }
-
-    this.fillDictionary();
-
-    this.requestCompanyList();
   }
 }
