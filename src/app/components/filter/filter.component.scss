@@ -14,11 +14,13 @@ form {
   input {
     margin: 5px;
     height: 30px;
+    width: 160px;
+    padding: 0 0 0 5px;
   }
-  select {
+  select {    
     margin: 5px;
-    height: 31px;
-    width: 170px;
+    height: 32px;
+    width: 167px;
   }
 }
 .filterButtons {
