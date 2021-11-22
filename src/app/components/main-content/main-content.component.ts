@@ -34,8 +34,6 @@ export class MainContentComponent implements OnInit {
         localStorage.setItem('refresh_token', data.response.refresh_token);
         this.access_token = data.response.access_token;
         this.refresh_token = data.response.refresh_token;
-        
-        return data.response.access_token;
       })
       .catch((err) => console.error(err));
   }
@@ -140,7 +138,11 @@ export class MainContentComponent implements OnInit {
       'Область, край',
       'district'
     );
-    await this.loadDictionary('/references/Region/', 'Регион', 'region');
+    await this.loadDictionary(
+      '/references/Region/',
+      'Регион', 
+      'region'
+     );
   }
 
   //get tokens for future
